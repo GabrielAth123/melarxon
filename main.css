@@ -317,7 +317,7 @@ a { color:var(--color-amber); text-decoration:none; font-weight: 500; }
 
 .card__price {
   font-family: var(--font-body);
-  font-size: var(--text-md); 
+  font-size: var(--text-sm); 
   font-weight: 800;
   color: var(--color-amber); /* Το χρυσό/μελένιο χρώμα που είχες αρχικά */
 }
