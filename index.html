@@ -12,22 +12,22 @@
 </head>
 <body>
 
-  <header class="header">
-    <div class="header__top">
-      <div class="header__overlay"></div>
-      <div class="header__inner">
-        <div class="header__logo">
-          <img src="foto/logo.jpg" alt="Μέλαρχων Logo" class="main-logo">
-        </div>
-        <span class="header__badge">Φυσικά προϊόντα μελιού Ελληνικής προέλευσης</span>
+ <header class="header">
+  <div class="header__video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="foto/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="header__top">
+    <div class="header__overlay"></div>
+    <div class="header__inner">
+      <div class="header__logo">
+        <img src="foto/logo.jpg" alt="Μέλαρχων Logo" class="main-logo">
       </div>
+      <span class="header__badge">Φυσικά προϊόντα μελιού Ελληνικής προέλευσης</span>
     </div>
-    <div class="header__video-wrap">
-      <video autoplay muted loop playsinline>
-        <source src="foto/hero.mp4" type="video/mp4">
-      </video>
-    </div>
-  </header>
+  </div>
+</header>
 
   <main class="products" id="products"></main>
 
@@ -163,8 +163,8 @@
         tasteLabel: '🍯 Γεύση, Άρωμα & Υφή',
         photo: 'foto/kastano.jpg',
         modalPhoto: 'foto/kastano2.jpg', 
-        mainPrice: '1kg: 14,00 €', 
-        color: '#C17B10', 
+        mainPrice: '1kg: 18,00 €', 
+        color: '#B8860B', 
         allSizes: [
           { label: '1kg', price: '18€' },
           { label: '500g', price: '10€' },
@@ -316,28 +316,28 @@
       }
     ];
 
-    const productsList = document.getElementById('products');
+ const productsList = document.getElementById('products');
     const overlay      = document.getElementById('modalOverlay');
     const modalEl      = document.getElementById('modal');
 
     function renderGrid() {
       productsList.innerHTML = '';
       PRODUCTS.forEach((p, index) => {
-        const card = document.createElement('article');
-        card.className = 'card';
-        card.style.setProperty('--cap-color', p.color || '#C17B10');
-        card.innerHTML = `
-          <div class="card__thumb">
-            <img class="card__photo" src="${p.photo}" alt="${p.name}" loading="lazy" />
-          </div>
-          <div class="card__body">
-            <h2 class="card__name">${p.name}</h2>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: auto;">
-              <span class="card__color-dot" style="background-color: ${p.color || '#C17B10'};"></span>
-              <span class="card__price">${p.mainPrice}</span>
-            </div>
-          </div>
-        `;
+       const card = document.createElement('article');
+card.className = 'card';
+card.style.setProperty('--cap-color', p.color || '#C17B10');
+card.innerHTML = `
+  <div class="card__thumb">
+    <img class="card__photo" src="${p.photo}" alt="${p.name}" loading="lazy" />
+  </div>
+  <div class="card__body" style="border-top: 12px solid ${p.color || '#C17B10'};">
+    <h2 class="card__name">${p.name}</h2>
+    <div style="display: flex; align-items: center; gap: 6px; margin-top: auto;">
+      <span class="card__color-dot" style="background-color: ${p.color || '#C17B10'};"></span>
+      <span class="card__price">${p.mainPrice}</span>
+    </div>
+  </div>
+`;
         card.addEventListener('click', () => openModal(p));
         productsList.appendChild(card);
         setTimeout(() => card.classList.add('card--in'), index * 80);
@@ -371,6 +371,9 @@
       overlay.classList.add('is-open');
       modalEl.classList.add('modal--open');
       document.body.style.overflow = 'hidden';
+
+      // Σπρώχνει εγγραφή στο history ώστε το πίσω του κινητού να κλείνει το modal
+      history.pushState({ modalOpen: true }, '');
     }
 
     function closeModal() {
@@ -383,8 +386,22 @@
       }, 300);
     }
 
-    document.getElementById('modalClose').addEventListener('click', closeModal);
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    // Κουμπί Χ
+    document.getElementById('modalClose').addEventListener('click', () => {
+      history.back(); // αφήνει το popstate να κλείσει το modal
+    });
+
+    // Κλικ έξω από το modal
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) history.back();
+    });
+
+    // Κουμπί πίσω κινητού
+    window.addEventListener('popstate', () => {
+      if (overlay.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
 
     document.addEventListener('DOMContentLoaded', renderGrid);
   </script>

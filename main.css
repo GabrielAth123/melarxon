@@ -88,6 +88,7 @@ a { color:var(--color-amber); text-decoration:none; font-weight: 500; }
   min-height: 180px;
   overflow: hidden;
   padding: var(--space-4);
+  background: var(--color-dark); /* πρόσθεσε αυτό */
 }
 
 .header__overlay {
@@ -166,7 +167,7 @@ a { color:var(--color-amber); text-decoration:none; font-weight: 500; }
 /* VIDEO SECTION - ΜΕΓΑΛΥΤΕΡΟ ΥΨΟΣ */
 .header__video-wrap {
   width: 100%;
-  height: 350px; /* Αυξήθηκε από 250px σε 350px για να μεγαλώσει το κουτί του βίντεο */
+  height: 220px; /* από 350px */
   overflow: hidden;
   position: relative;
   background: #000;
@@ -220,8 +221,7 @@ a { color:var(--color-amber); text-decoration:none; font-weight: 500; }
   transform: translateY(20px);
   transition: all 0.4s var(--ease-out);
   will-change: transform, opacity;
-  border-top: 12px solid var(--cap-color);
-  /* αφαίρεσε min-height: 280px */
+  border-top: none; /* αφαίρεσε το border-top */
 }
 
 .card--in {
@@ -273,15 +273,13 @@ a { color:var(--color-amber); text-decoration:none; font-weight: 500; }
 
 /* ΤΟ ΜΕΛΙΝΙ BACKGROUND ΣΤΑ ΓΡΑΜΜΑΤΑ */
 .card__body {
-  padding: var(--space-3) var(--space-3) var(--space-3);
+  padding: var(--space-4) var(--space-3) var(--space-3);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   flex: 1;
   background: rgba(193, 123, 16, 0.07);
-  border-top: 1px solid rgba(193, 123, 16, 0.12);
 }
-
 /* Η ΕΓΧΡΩΜΗ ΒΟΥΛΑ (ΚΑΠΑΚΙ) */
 .card__color-dot {
   width: 10px;
